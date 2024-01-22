@@ -1,0 +1,192 @@
+openapi: 3.0.0
+info:
+  title: Hiring Request API
+  version: 1.0.0
+paths:
+  /request/:
+    post:
+      summary: Create a new hiring request
+      operationId: postHiringRequest
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                hiringRequest:
+                  $ref: '#/components/schemas/HiringRequestDTO'
+                jobDesc:
+                  type: string
+                  format: binary
+                skills:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                userDocs:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HiringRequest'
+components:
+  schemas:
+    HiringRequestDTO:
+      type: object
+      properties:
+        jobTitle:
+          type: string
+          description: Job title
+          example: "Software Engineer"
+        salary:
+          type: integer
+          format: int32
+          description: Salary
+          example: 80000
+        role:
+          type: string
+          description: Role
+          example: "DEVELOPER"
+        location:
+          $ref: '#/components/schemas/LocationRequest'
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillRequest'
+    LocationRequest:
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country name
+          example: "United States"
+        city:
+          type: string
+          description: City name
+          example: "New York"
+        Address:
+          type: string
+          description: Address
+          example: "123 Main St, Apt 4"
+    SkillRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Skill name
+          example: "Java"
+        experience:
+          type: integer
+          format: int32
+          description: Experience in years
+          example: 3
+        docName:
+          type: string
+          description: Document name (optional)
+          example: "Certification.pdf"
+    HiringRequest:
+      type: object
+      properties:
+        requestID:
+          type: integer
+          description: The unique identifier for the hiring request
+          example: 1
+        role:
+          type: string
+          description: Role
+          example: "DEVELOPER"
+        salary:
+          type: integer
+          format: int32
+          description: Salary
+          example: 80000
+        title:
+          type: string
+          description: Title
+          example: "Software Engineer"
+        location:
+          $ref: '#/components/schemas/Location'
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+        userAttachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+    Location:
+      type: object
+      properties:
+        locationID:
+          type: integer
+          description: The unique identifier for the location
+          example: 1
+        country:
+          type: string
+          description: Country name
+          example: "United States"
+        city:
+          type: string
+          description: City name
+          example: "New York"
+        Address:
+          type: string
+          description: Address
+          example: "123 Main St, Apt 4"
+
+    Skill:
+      type: object
+      properties:
+        skillID:
+          type: integer
+          description: The unique identifier for the skill
+          example: 1
+        name:
+          type: string
+          description: Skill name
+          example: "Java"
+        experience:
+          type: integer
+          format: int32
+          description: Experience in years
+          example: 3
+
+    Attachment:
+      type: object
+      properties:
+        attachmentID:
+          type: integer
+          description: The unique identifier for the attachment
+          example: 1
+        data:
+          type: string
+          format: binary
+          description: Binary data of the attachment
+        fileType:
+          type: string
+          description: File type of the attachment
+          example: "pdf"
+        fileSize:
+          type: integer
+          format: int64
+          description: File size in bytes
+        fileName:
+          type: string
+          description: Original file name
+          example: "document.pdf"
+        uploadedAt:
+          type: string
+          format: date-time
+          description: Date and time of upload
+          example: "2022-01-01T12:00:00Z"
+        docType:
+          type: string
+          description: Document type
+          example: "RESUME"
+

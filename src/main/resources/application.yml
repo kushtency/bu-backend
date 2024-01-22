@@ -1,0 +1,23 @@
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 100KB
+      max-file-size: 50MB
+      max-request-size: 80MB
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: fip
+    password: fipProject@123
+    url: jdbc:mysql://localhost:3306/bu
+  
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 5500
